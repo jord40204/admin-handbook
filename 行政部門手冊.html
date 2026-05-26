@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行政部門 完整架構與執行手冊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amber: #EF9F27; --amber-light: #FAEEDA; --amber-dark: #633806;
+  --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #4A1B0C;
+  --blue: #378ADD; --blue-light: #E6F1FB; --blue-dark: #0C447C;
+  --green: #639922; --green-light: #EAF3DE; --green-dark: #27500A;
+  --purple: #7F77DD; --purple-light: #EEEDFE; --purple-dark: #26215C;
+  --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041;
+  --gray: #888780; --gray-light: #F1EFE8; --gray-dark: #2C2C2A;
+  --glass-bg: rgba(255,255,255,0.72);
+  --glass-border: rgba(255,255,255,0.85);
+  --glass-shadow: 0 8px 32px rgba(80,80,120,0.10), 0 1.5px 6px rgba(80,80,120,0.07);
+  --page-bg: #f0eff5;
+  --text: #1a1a2e; --text-2: #555566; --text-3: #888899;
+  --radius: 16px; --radius-sm: 10px; --radius-xs: 7px;
+  --transition: 0.28s cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans TC', 'Inter', sans-serif;
+  background: var(--page-bg);
+  background-image: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(127,119,221,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(29,158,117,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 60% 30%, rgba(239,159,39,0.07) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0 0 80px;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2b55 50%, #1a3a4a 100%);
+  padding: 56px 40px 48px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(127,119,221,0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 75% 30%, rgba(29,158,117,0.18) 0%, transparent 60%);
+}
+.hero-inner { position:relative; max-width:900px; margin:0 auto; }
+.hero-tag {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  padding:5px 14px; border-radius:20px; font-size:12px; color:rgba(255,255,255,0.75);
+  letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;
+}
+.hero h1 { font-size:36px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:10px; }
+.hero h1 span { color: #9FE1CB; }
+.hero p { font-size:15px; color:rgba(255,255,255,0.6); max-width:520px; line-height:1.7; }
+.hero-stats {
+  display:flex; gap:32px; margin-top:32px; padding-top:28px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat .num { font-size:28px; font-weight:700; color:#fff; }
+.hero-stat .lbl { font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px; }
+
+/* NAV PILLS */
+.nav-wrap { position:sticky; top:0; z-index:100; background:rgba(240,239,245,0.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(200,200,220,0.3); }
+.nav { display:flex; gap:4px; padding:10px 40px; max-width:960px; margin:0 auto; overflow-x:auto; }
+.nav-btn {
+  display:flex; align-items:center; gap:6px;
+  padding:7px 16px; border-radius:20px; border:none; cursor:pointer;
+  font-size:13px; font-weight:500; white-space:nowrap;
+  background:transparent; color:var(--text-2);
+  transition:var(--transition);
+}
+.nav-btn:hover { background:rgba(255,255,255,0.7); color:var(--text); }
+.nav-btn.active { color:#fff; }
+.nav-btn .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* MAIN LAYOUT */
+.main { max-width:960px; margin:0 auto; padding:36px 40px 0; }
+
+/* SECTION */
+.section { margin-bottom:28px; }
+.section-header {
+  display:flex; align-items:center; gap:14px;
+  padding:18px 22px; border-radius:var(--radius);
+  background:var(--glass-bg); backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  cursor:pointer; user-select:none;
+  transition:var(--transition);
+}
+.section-header:hover { background:rgba(255,255,255,0.85); }
+.sect-icon {
+  width:44px; height:44px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; flex-shrink:0;
+}
+.sect-title { font-size:18px; font-weight:700; flex:1; }
+.sect-meta { font-size:12px; color:var(--text-3); }
+.sect-badge {
+  padding:4px 12px; border-radius:20px; font-size:12px; font-weight:500;
+}
+.sect-arrow {
+  font-size:18px; color:var(--text-3);
+  transition: transform var(--transition);
+}
+.section-header.open .sect-arrow { transform:rotate(180deg); }
+.section-body { display:none; padding:4px 0 0; }
+.section-body.open { display:block; }
+
+/* ORG CHART */
+.org-wrap {
+  background:var(--glass-bg); backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);
+  border-radius:var(--radius); padding:32px 28px; margin-bottom:28px;
+}
+.org-title { font-size:14px; font-weight:600; color:var(--text-2); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:24px; }
+.org-tree { display:flex; flex-direction:column; align-items:center; gap:0; }
+.org-root {
+  background:linear-gradient(135deg,#2d2b55,#1a3a4a);
+  color:#fff; padding:14px 28px; border-radius:12px;
+  font-size:15px; font-weight:700; text-align:center;
+  box-shadow:0 4px 16px rgba(45,43,85,0.28);
+  min-width:180px;
+}
+.org-root-sub { font-size:11px; opacity:0.65; margin-top:3px; font-weight:400; }
+.org-connector { width:2px; height:28px; background:rgba(127,119,221,0.35); margin:0 auto; }
+.org-level { display:flex; justify-content:center; gap:16px; position:relative; }
+.org-level::before {
+  content:''; position:absolute; top:0; left:50%;
+  transform:translateX(-50%); width:calc(100% - 120px);
+  height:2px; background:rgba(127,119,221,0.2);
+}
+.org-node {
+  display:flex; flex-direction:column; align-items:center;
+  min-width:120px;
+}
+.org-node-line { width:2px; height:22px; margin:0 auto; }
+.org-card {
+  padding:12px 16px; border-radius:10px;
+  font-size:13px; font-weight:600; text-align:center;
+  min-width:110px; cursor:pointer;
+  transition:var(--transition); border:2px solid transparent;
+}
+.org-card:hover { transform:translateY(-2px); }
+.org-duties { margin-top:10px; display:flex; flex-direction:column; gap:4px; }
+.org-duty {
+  padding:3px 10px; border-radius:20px; font-size:11px;
+  background:rgba(255,255,255,0.6); color:var(--text-2);
+  border:1px solid rgba(200,200,220,0.3); text-align:center;
+}
+
+/* SUBSECTION (task accordion) */
+.subsection { margin-bottom:6px; }
+.sub-header {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 18px; border-radius:var(--radius-sm);
+  background:rgba(255,255,255,0.55); backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.75);
+  cursor:pointer; transition:var(--transition);
+}
+.sub-header:hover { background:rgba(255,255,255,0.75); }
+.sub-icon { font-size:17px; }
+.sub-title { font-size:14px; font-weight:600; flex:1; }
+.sub-arrow { font-size:14px; color:var(--text-3); transition: transform var(--transition); }
+.sub-header.open .sub-arrow { transform:rotate(180deg); }
+.sub-body { display:none; padding:4px 0 0 0; }
+.sub-body.open { display:block; }
+
+/* CONTENT CARD */
+.content-card {
+  background:rgba(255,255,255,0.65); backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.8); border-radius:var(--radius-sm);
+  padding:20px 22px; margin-bottom:6px;
+}
+
+/* BLOCK LABELS */
+.block-label {
+  display:flex; align-items:center; gap:7px;
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em;
+  color:var(--text-3); margin:18px 0 10px;
+}
+.block-label:first-child { margin-top:0; }
+.block-label::after { content:''; flex:1; height:1px; background:rgba(180,180,200,0.3); }
+
+/* STEPS */
+.steps { counter-reset:step; display:flex; flex-direction:column; gap:8px; }
+.step {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:10px 14px; background:rgba(248,248,255,0.7);
+  border-radius:var(--radius-xs); border:1px solid rgba(200,200,220,0.2);
+}
+.step-num {
+  counter-increment:step;
+  min-width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; flex-shrink:0; margin-top:1px;
+}
+.step-text { font-size:13px; line-height:1.65; color:var(--text); }
+.step-sub { font-size:12px; color:var(--text-2); margin-top:4px; font-style:italic; }
+
+/* TABLE */
+.tbl-wrap { overflow-x:auto; margin:0; border-radius:var(--radius-xs); overflow:hidden; border:1px solid rgba(200,200,220,0.25); }
+table { width:100%; border-collapse:collapse; font-size:12.5px; }
+thead tr { background:rgba(100,100,140,0.08); }
+th { padding:9px 12px; text-align:left; font-weight:600; color:var(--text-2); border-bottom:1px solid rgba(200,200,220,0.2); }
+td { padding:9px 12px; border-bottom:1px solid rgba(200,200,220,0.12); color:var(--text); line-height:1.55; vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:rgba(200,200,255,0.06); }
+td:first-child { font-weight:500; }
+
+/* TIP BOX */
+.tip-box {
+  display:flex; gap:12px; padding:14px 16px;
+  border-radius:var(--radius-xs); margin-top:4px;
+  border-left:3px solid;
+}
+.tip-box.tip { background:rgba(239,159,39,0.08); border-color:var(--amber); }
+.tip-box.warn { background:rgba(216,90,48,0.07); border-color:var(--coral); }
+.tip-box.info { background:rgba(55,138,221,0.07); border-color:var(--blue); }
+.tip-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+.tip-text { font-size:13px; line-height:1.7; color:var(--text); }
+
+/* CHECKLIST */
+.checklist { display:flex; flex-direction:column; gap:6px; }
+.check-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:8px 12px; background:rgba(248,248,255,0.6);
+  border-radius:var(--radius-xs); font-size:13px; line-height:1.55;
+}
+.check-dot { width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; font-size:11px; }
+
+/* FLOW */
+.flow { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:4px 0; }
+.flow-node {
+  padding:7px 14px; border-radius:20px; font-size:12px; font-weight:500;
+  display:flex; align-items:center; gap:5px;
+}
+.flow-arrow { color:var(--text-3); font-size:16px; }
+
+/* PRIORITY TAGS */
+.priority-list { display:flex; flex-direction:column; gap:6px; }
+.priority-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:9px 14px; border-radius:var(--radius-xs);
+  border:1px solid rgba(200,200,220,0.2);
+  background:rgba(255,255,255,0.5);
+}
+.priority-num {
+  min-width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; flex-shrink:0;
+}
+.priority-text { font-size:13px; line-height:1.55; }
+
+/* CHECKPOINT TABLE */
+.cp-grid { display:flex; flex-direction:column; gap:6px; }
+.cp-row {
+  display:grid; grid-template-columns:2fr 2fr 1.5fr;
+  gap:10px; padding:10px 14px; border-radius:var(--radius-xs);
+  background:rgba(255,255,255,0.5); border:1px solid rgba(200,200,220,0.2);
+}
+.cp-label { font-size:11px; color:var(--text-3); margin-bottom:3px; }
+.cp-val { font-size:13px; font-weight:500; }
+.cp-date { font-size:12px; }
+.cp-head {
+  display:grid; grid-template-columns:2fr 2fr 1.5fr;
+  gap:10px; padding:4px 14px 8px;
+  font-size:11px; font-weight:700; color:var(--text-3); text-transform:uppercase; letter-spacing:0.06em;
+}
+
+/* WEEK PLAN */
+.week-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+.week-card {
+  padding:14px 16px; border-radius:var(--radius-xs);
+  background:rgba(255,255,255,0.55); border:1px solid rgba(200,200,220,0.25);
+}
+.week-num { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+.week-items { display:flex; flex-direction:column; gap:5px; }
+.week-item { font-size:12.5px; color:var(--text); line-height:1.5; padding-left:12px; position:relative; }
+.week-item::before { content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; }
+
+/* SCROLLTOP */
+.scroll-top {
+  position:fixed; bottom:28px; right:28px;
+  width:42px; height:42px; border-radius:50%;
+  background:rgba(45,43,85,0.85); backdrop-filter:blur(10px);
+  color:#fff; border:none; cursor:pointer; font-size:18px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2); transition:var(--transition);
+  opacity:0; pointer-events:none;
+}
+.scroll-top.show { opacity:1; pointer-events:all; }
+.scroll-top:hover { transform:translateY(-2px); }
+
+/* COLOR THEMES per dept */
+.theme-mgr .sect-icon { background:linear-gradient(135deg,#2d2b55,#1a3a4a); color:#9FE1CB; }
+.theme-mgr .sect-badge { background:#EEEDFE; color:#26215C; }
+.theme-mgr .sect-title { color:#26215C; }
+.theme-desk .sect-icon { background:var(--amber-light); color:var(--amber-dark); }
+.theme-desk .sect-badge { background:var(--amber-light); color:var(--amber-dark); }
+.theme-hr .sect-icon { background:var(--coral-light); color:var(--coral-dark); }
+.theme-hr .sect-badge { background:var(--coral-light); color:var(--coral-dark); }
+.theme-gen .sect-icon { background:var(--blue-light); color:var(--blue-dark); }
+.theme-gen .sect-badge { background:var(--blue-light); color:var(--blue-dark); }
+.theme-fin .sect-icon { background:var(--green-light); color:var(--green-dark); }
+.theme-fin .sect-badge { background:var(--green-light); color:var(--green-dark); }
+.theme-new .sect-icon { background:var(--purple-light); color:var(--purple-dark); }
+.theme-new .sect-badge { background:var(--purple-light); color:var(--purple-dark); }
+.theme-cross .sect-icon { background:var(--teal-light); color:var(--teal-dark); }
+.theme-cross .sect-badge { background:var(--teal-light); color:var(--teal-dark); }
+
+/* STEP NUM COLORS */
+.sn-amber { background:var(--amber-light); color:var(--amber-dark); }
+.sn-coral { background:var(--coral-light); color:var(--coral-dark); }
+.sn-blue { background:var(--blue-light); color:var(--blue-dark); }
+.sn-green { background:var(--green-light); color:var(--green-dark); }
+.sn-purple { background:var(--purple-light); color:var(--purple-dark); }
+.sn-teal { background:var(--teal-light); color:var(--teal-dark); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">📋 內部管理文件 · 行政部門</div>
+    <h1>行政部門<br><span>完整架構與執行手冊</span></h1>
+    <p>包含職責說明、執行步驟、常見問題排解、經驗傳承與查核機制。讓主管能即時掌握進度，讓員工知道如何執行，讓交接不再困難。</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">5</div><div class="lbl">核心部門</div></div>
+      <div class="hero-stat"><div class="num">20+</div><div class="lbl">職責節點</div></div>
+      <div class="hero-stat"><div class="num">50+</div><div class="lbl">查核點</div></div>
+      <div class="hero-stat"><div class="num">100%</div><div class="lbl">可交接</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="nav-btn active" style="background:#2d2b55;color:#fff" onclick="navTo('mgr')">
+      <span class="dot" style="background:#9FE1CB"></span>組長統籌
+    </button>
+    <button class="nav-btn" onclick="navTo('desk')">
+      <span class="dot" style="background:var(--amber)"></span>行政櫃台
+    </button>
+    <button class="nav-btn" onclick="navTo('hr')">
+      <span class="dot" style="background:var(--coral)"></span>人資
+    </button>
+    <button class="nav-btn" onclick="navTo('gen')">
+      <span class="dot" style="background:var(--blue)"></span>總務
+    </button>
+    <button class="nav-btn" onclick="navTo('fin')">
+      <span class="dot" style="background:var(--green)"></span>財務
+    </button>
+    <button class="nav-btn" onclick="navTo('new')">
+      <span class="dot" style="background:var(--purple)"></span>新人訓練
+    </button>
+    <button class="nav-btn" onclick="navTo('cross')">
+      <span class="dot" style="background:var(--teal)"></span>跨部門協作
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ORG CHART -->
+<div class="org-wrap" id="org">
+  <div class="org-title">組織架構圖</div>
+  <div class="org-tree">
+    <div class="org-root">
+      行政部門
+      <div class="org-root-sub">Administration Department</div>
+    </div>
+    <div class="org-connector"></div>
+    <div style="background:linear-gradient(135deg,#7F77DD,#534AB7);color:#fff;padding:10px 22px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 3px 12px rgba(127,119,221,0.3);">行政組長</div>
+    <div class="org-connector"></div>
+    <div class="org-level">
+      <div class="org-node">
+        <div class="org-node-line" style="background:var(--amber)"></div>
+        <div class="org-card" style="background:var(--amber-light);color:var(--amber-dark);border-color:var(--amber);" onclick="openSection('desk')">
+          🟡 行政櫃台
+        </div>
+        <div class="org-duties">
+          <div class="org-duty">接待預約</div>
+          <div class="org-duty">日記帳</div>
+          <div class="org-duty">文書</div>
+        </div>
+      </div>
+      <div class="org-node">
+        <div class="org-node-line" style="background:var(--coral)"></div>
+        <div class="org-card" style="background:var(--coral-light);color:var(--coral-dark);border-color:var(--coral);" onclick="openSection('hr')">
+          🔴 人資
+        </div>
+        <div class="org-duties">
+          <div class="org-duty">招募</div>
+          <div class="org-duty">排班派案</div>
+          <div class="org-duty">薪資</div>
+        </div>
+      </div>
+      <div class="org-node">
+        <div class="org-node-line" style="background:var(--blue)"></div>
+        <div class="org-card" style="background:var(--blue-light);color:var(--blue-dark);border-color:var(--blue);" onclick="openSection('gen')">
+          🔵 總務
+        </div>
+        <div class="org-duties">
+          <div class="org-duty">採購庫存</div>
+          <div class="org-duty">維修</div>
+          <div class="org-duty">環境</div>
+        </div>
+      </div>
+      <div class="org-node">
+        <div class="org-node-line" style="background:var(--green)"></div>
+        <div class="org-card" style="background:var(--green-light);color:var(--green-dark);border-color:var(--green);" onclick="openSection('fin')">
+          🟢 財務
+        </div>
+        <div class="org-duties">
+          <div class="org-duty">帳務</div>
+          <div class="org-duty">稅務</div>
+          <div class="org-duty">報表</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 行政組長 ===== -->
+<div class="section" id="mgr">
+  <div class="section-header theme-mgr" onclick="toggleSection(this)">
+    <div class="sect-icon">👑</div>
+    <div>
+      <div class="sect-title">行政組長 — 橫向統籌</div>
+      <div class="sect-meta">協調廠商・櫃台訓練・調度人力・預算編列・財務分析</div>
+    </div>
+    <div class="sect-badge" style="background:#EEEDFE;color:#26215C;">5 項核心職責</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+    <div class="content-card" style="margin-top:6px">
+      <div class="block-label">查核點總覽</div>
+      <div class="cp-head"><span>核心職責</span><span>執行說明</span><span>查核時間點</span></div>
+      <div class="cp-grid">
+        <div class="cp-row">
+          <div><div class="cp-label">職責</div><div class="cp-val">櫃台訓練</div></div>
+          <div><div class="cp-label">說明</div><div class="cp-date">前台新人到職訓練、SOP 修訂與考核</div></div>
+          <div><div class="cp-label">查核點</div><div class="cp-date" style="color:var(--coral)">到職第2週／第4週</div></div>
+        </div>
+        <div class="cp-row">
+          <div><div class="cp-label">職責</div><div class="cp-val">財務狀況分析</div></div>
+          <div><div class="cp-label">說明</div><div class="cp-date">檢視財報，針對成本與營收異常分析</div></div>
+          <div><div class="cp-label">查核點</div><div class="cp-date" style="color:var(--coral)">每月15日前</div></div>
+        </div>
+        <div class="cp-row">
+          <div><div class="cp-label">職責</div><div class="cp-val">調度人力</div></div>
+          <div><div class="cp-label">說明</div><div class="cp-date">跨部門人力支援、排班衝突處理</div></div>
+          <div><div class="cp-label">查核點</div><div class="cp-date" style="color:var(--coral)">每月25日班表確認</div></div>
+        </div>
+        <div class="cp-row">
+          <div><div class="cp-label">職責</div><div class="cp-val">預算編列</div></div>
+          <div><div class="cp-label">說明</div><div class="cp-date">統籌各部門月度/年度預算，成本控管</div></div>
+          <div><div class="cp-label">查核點</div><div class="cp-date" style="color:var(--coral)">每月28日前</div></div>
+        </div>
+        <div class="cp-row">
+          <div><div class="cp-label">職責</div><div class="cp-val">協調廠商</div></div>
+          <div><div class="cp-label">說明</div><div class="cp-date">議價、追蹤合約、處理供應異常</div></div>
+          <div><div class="cp-label">查核點</div><div class="cp-date" style="color:var(--coral)">每季合約審查</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 行政櫃台 ===== -->
+<div class="section" id="desk">
+  <div class="section-header theme-desk" onclick="toggleSection(this)">
+    <div class="sect-icon">📋</div>
+    <div>
+      <div class="sect-title">行政櫃台</div>
+      <div class="sect-meta">接待・清潔・日記帳・文書</div>
+    </div>
+    <div class="sect-badge">4 項職責</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+
+    <!-- 接待 -->
+    <div class="subsection" style="margin-top:6px">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📞</div>
+        <div class="sub-title">接待（電話 / 預約）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-amber">1</div><div><div class="step-text">接起後報名稱：「○○治療所，您好，請問有什麼可以協助您？」</div></div></div>
+            <div class="step"><div class="step-num sn-amber">2</div><div><div class="step-text">記錄來電目的（預約治療/評估・課程諮詢・轉接）</div></div></div>
+            <div class="step"><div class="step-num sn-amber">3</div><div><div class="step-text">採集病患完整姓名、聯絡電話、希望就診時段</div></div></div>
+            <div class="step"><div class="step-num sn-amber">4</div><div><div class="step-text">對照最新班表確認可用時段 ——「絕對不要靠記憶直接答應預約」</div></div></div>
+            <div class="step"><div class="step-num sn-amber">5</div><div><div class="step-text">口頭複誦確認：「您的預約是○月○日○點，治療師為○○，這樣正確嗎？」</div></div></div>
+            <div class="step"><div class="step-num sn-amber">6</div><div><div class="step-text">提醒取消規定，請病患若需更改提前告知</div></div></div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+              <tbody>
+                <tr><td>預約時間衝突（撞診）</td><td>班表未即時更新或憑記憶操作</td><td>預約前必須重整系統，落實「先看班表、後填寫、再確認」流程</td></tr>
+                <tr><td>舊病患時段無指定治療師</td><td>治療師休假但願意接舊個案</td><td>訊息詢問治療師是否願意加診，再回電確認</td></tr>
+                <tr><td>新病患時段無治療師</td><td>值班治療師未到班但可加診</td><td>訊息詢問是否願意加診，再回電確認</td></tr>
+                <tr><td>諮詢內容複雜或專業</td><td>對物理治療內容不瞭解</td><td>留下聯絡方式，請治療師回電或加官方 LINE</td></tr>
+                <tr><td>病患態度不佳</td><td>等待過久或費用誤解</td><td>不正面爭辯，先同理，再說明，最後給折衷方案</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">預約最容易出錯的地方不是系統故障，而是「確認預約」沒落實。每次幫病患約好時間，都要完整複誦確認一遍。遇到不確定的班表，寧可說「我幫您確認後10分鐘內回電」，也絕對不要現場亂給答案。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 整理清潔 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🧹</div>
+        <div class="sub-title">整理清潔</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行項目</div>
+          <div class="checklist">
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>開診前依清潔 SOP 表逐項確認：等候區、室外區、廁所（無異味、衛生紙充足）、治療室（床單、儀器定位）、前台桌面</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>診中每 2 小時巡視廁所與等候區（高峰期增加頻率）</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>隨時補充前台表單、酒精、擦手紙等常備物資</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>下診後：清空垃圾、關閉非必要電源、鎖好門窗與保險箱</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">!</div><div><strong>除濕機要定期倒水 —— 非常重要！！！</strong></div></div>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">環境清潔最容易被忽略的是「細節的一致性」。不需要每天大掃除，而是讓病患每一次進來感受都一樣。建議主管建立每日清潔打勾清單，清完就點選，管理者每週抽查一次即可。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 日記帳 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">💵</div>
+        <div class="sub-title">日記帳（結帳存錢 / 發票收據整理）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-amber">1</div><div class="step-text">每日下診後，點收櫃台所有現金櫃</div></div>
+            <div class="step"><div class="step-num sn-amber">2</div><div class="step-text">對照管理系統當日收費紀錄，逐筆核對現金、轉帳、多堂數紀錄是否正確</div></div>
+            <div class="step"><div class="step-num sn-amber">3</div><div class="step-text">填寫日結收費登記表，若有不符需立即拉出交易明細查找</div></div>
+            <div class="step"><div class="step-num sn-amber">4</div><div class="step-text">金額確認無誤後存入指定帳戶並填寫存入日期，或確實放入保險箱鎖好</div></div>
+            <div class="step"><div class="step-num sn-amber">5</div><div class="step-text">確認當日發票或收據依序號排列，確保病患單據都已開立完成</div></div>
+            <div class="step"><div class="step-num sn-amber">6</div><div class="step-text">月底前將整月發票、收據、日記帳彙整，雙數月月底交付會計事務所</div></div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+              <tbody>
+                <tr><td>當晚現金對不上</td><td>找錢錯誤、漏記多堂數、代墊款未扣除</td><td>從「最後一筆有對上的時間點」往後逐筆拉監視器或核對簽單</td></tr>
+                <tr><td>收據編號跳號或金額不符</td><td>系統異常或作廢收據未確實刪除</td><td>重新核對當日收費登記與收據是否已開立</td></tr>
+                <tr><td>月底對帳困難</td><td>多堂數事後補帳、匯款未入帳、退費輸入錯誤</td><td>從上次正確日期查找，確保存入帳務皆有回報，多堂數是否補正</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">帳務不對時千萬別慌張。99% 的帳差都出在找錢時分心，或付款方式是匯款或多堂數。一定要養成「每筆交易結束，手離開鈔票前，立刻登打系統」的肌肉記憶。絕對不要想著「下診再補記」，那一定會漏。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文書 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📄</div>
+        <div class="sub-title">文書（寄信 / 收發公文 / 病歷資料）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行項目</div>
+          <div class="checklist">
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>信件寄出：確認收件人資訊，掛號信件填寫掛號單並秤重貼足郵資（郵局購買，需打統編），登記寄出日期與內容</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>公文收文：可視情況拆封並第一時間回報來文日期、來文單位、主旨</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>發文核章：對外發文或 email 必須確認行政組長或老闆已確認後方可寄出，並留存副本</div></div>
+            <div class="check-item"><div class="check-dot sn-amber">✓</div><div>初診資料登打及預約系統建檔預約，紙本病歷與多堂數資料歸檔</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 人資 ===== -->
+<div class="section" id="hr">
+  <div class="section-header theme-hr" onclick="toggleSection(this)">
+    <div class="sect-icon">👥</div>
+    <div>
+      <div class="sect-title">人資（HR）</div>
+      <div class="sect-meta">招募・派案・排班・薪資計算・考勤</div>
+    </div>
+    <div class="sect-badge">5 項職責</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+
+    <!-- 招募 -->
+    <div class="subsection" style="margin-top:6px">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🔍</div>
+        <div class="sub-title">招募人力</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-coral">1</div><div class="step-text">確認各部門職缺需求（職位、編制人數、特質、預計到職日）</div></div>
+            <div class="step"><div class="step-num sn-coral">2</div><div class="step-text">發布招募管道：104・518・小雞上工・專業社群・公會・內部推薦</div></div>
+            <div class="step"><div class="step-num sn-coral">3</div><div class="step-text">篩選履歷，符合者電話/信件邀約面試，發送面試須知</div></div>
+            <div class="step"><div class="step-num sn-coral">4</div><div class="step-text">面試評估紀錄，優秀人選提報老闆做最終決定</div></div>
+            <div class="step"><div class="step-num sn-coral">5</div><div class="step-text">發出正式 Offer，確認到職日，準備系統帳號與勞健保加保資料</div></div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+            <tbody>
+              <tr><td>職缺乏人問津</td><td>條件過嚴、薪資不具競爭力</td><td>重新檢視並優化關鍵字，與主管討論是否調整起薪或放寬次要條件</td></tr>
+              <tr><td>錄取後放鳥</td><td>同時錄取多家，考慮期過長</td><td>縮短發 Offer 時間，到職前每週保持適度關懷聯繫</td></tr>
+              <tr><td>新人到職不到一週離職</td><td>期待落差過大</td><td>面試時如實告知工作辛苦之處，不要過度美化</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 派案 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🔀</div>
+        <div class="sub-title">派案（按班表分工）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">派案優先順序</div>
+          <div class="priority-list">
+            <div class="priority-item"><div class="priority-num sn-coral">1</div><div class="priority-text"><strong>病患指定</strong>之專屬/常用治療師</div></div>
+            <div class="priority-item"><div class="priority-num sn-coral">2</div><div class="priority-text">依病患病症與治療師<strong>核心專長</strong>進行最佳媒合</div></div>
+            <div class="priority-item"><div class="priority-num sn-coral">3</div><div class="priority-text">依班表各治療師「當月新病人量→當月案量→當日案量」<strong>平均分配</strong></div></div>
+          </div>
+          <div class="block-label">臨時請假備援流程</div>
+          <div class="flow">
+            <div class="flow-node" style="background:var(--coral-light);color:var(--coral-dark);">確認出勤名單</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" style="background:var(--coral-light);color:var(--coral-dark);">聯繫備援治療師</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" style="background:var(--coral-light);color:var(--coral-dark);">無法補位→聯絡病患改期</div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+            <tbody>
+              <tr><td>治療師無預警缺勤</td><td>突發不可抗力</td><td>平時維護「全職/兼職備援通訊錄」，確保隨時有1位以上可機動調度</td></tr>
+              <tr><td>病患堅持不換治療師</td><td>對特定治療師依賴度高</td><td>先致歉，說明突發身體不適，給予同一治療師最早候補權與相關補償</td></tr>
+              <tr><td>治療師抱怨派案不公</td><td>缺乏量化統計，純憑直覺</td><td>每週統計各治療師總接案量與時數，公開數據，下週排班時微調</td></tr>
+            </tbody>
+          </table></div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip" style="background:rgba(216,90,48,0.07);border-color:var(--coral)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">派案本質上是在管理「人的期待」。病患想要效果、治療師想要業績或合理休息。必須定期檢視後台數據，讓勞務分配在視覺上是公開、合理的。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 排班 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📅</div>
+        <div class="sub-title">排班</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-coral">1</div><div><div class="step-text">每月15日截止：收集所有同仁次月特殊休假需求（TimeTree 填寫）</div></div></div>
+            <div class="step"><div class="step-num sn-coral">2</div><div><div class="step-text">每月20日前完成下月班表草稿，確保各時段足夠核心人力</div></div></div>
+            <div class="step"><div class="step-num sn-coral">3</div><div><div class="step-text">任何時段治療師與櫃台盡量不得同時只剩1人</div></div></div>
+            <div class="step"><div class="step-num sn-coral">4</div><div><div class="step-text">連假、跨年、大節日需提前一個月規劃調休配套措施</div></div></div>
+            <div class="step"><div class="step-num sn-coral">5</div><div><div class="step-text">每月25日前公布下月班表，開放3天異議期，期滿後原則鎖定，不得私自調班</div></div></div>
+            <div class="step"><div class="step-num sn-coral">6</div><div><div class="step-text">月底系統印製打卡單，供同仁簽核確認時數，計算薪資時登記各項時數內容</div></div></div>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip" style="background:rgba(216,90,48,0.07);border-color:var(--coral)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">排班不可能讓每個人100%滿意，但要讓大家感受到「規則是一致的」。遇到無法滿足的需求，要私下說明原因，不要冷漠地直接拒絕。所有排班歷史紀錄都要存檔，這在勞資考勤爭議時是最重要的依據。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 薪資 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">💰</div>
+        <div class="sub-title">薪資計算</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-coral">1</div><div class="step-text">月底由班表系統導出全體同仁當月出勤、請假、遲到、加班總時數</div></div>
+            <div class="step"><div class="step-num sn-coral">2</div><div class="step-text">依個人投保級距精算勞保、健保、勞退及請假扣薪項目</div></div>
+            <div class="step"><div class="step-num sn-coral">3</div><div class="step-text">薪資表送交行政組長及老闆審核，並給所有同仁確認</div></div>
+            <div class="step"><div class="step-num sn-coral">4</div><div class="step-text">匯款前雙人核對（人資＋財務）受款帳號與總金額，設定預約轉帳</div></div>
+            <div class="step"><div class="step-num sn-coral">5</div><div class="step-text">發薪後整套薪資結算憑證，請同仁填寫勞務報酬單移交總公司會計入帳</div></div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+            <tbody>
+              <tr><td>員工反映薪資少算</td><td>收費登記填寫有誤、時數不正確</td><td>收費登記與時數重新確認，公式出錯找工程團隊處理</td></tr>
+              <tr><td>員工不理解扣款項目</td><td>薪資單項目模糊</td><td>發放電子或紙本「薪資明細表」，本薪/津貼/勞健保分列清晰</td></tr>
+              <tr><td>匯款失敗被銀行退匯</td><td>帳號變更未報備或輸入錯誤</td><td>報到時附存摺影本，年中若有變更，需於每月15日前填寫變更申請單</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 考勤 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">⏰</div>
+        <div class="sub-title">考勤</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行項目</div>
+          <div class="checklist">
+            <div class="check-item"><div class="check-dot sn-coral">!</div><div><strong>每日異常當天清：</strong>漏打卡或異常遲到，必須當天確認原因並補登記於系統（休假類型/補班/加班），<strong>嚴禁累積到月底才查</strong></div></div>
+            <div class="check-item"><div class="check-dot sn-coral">✓</div><div>請假單據留存：病假需就醫證明，事假需提前申請，所有假單及佐證需系統或紙本歸檔</div></div>
+            <div class="check-item"><div class="check-dot sn-coral">✓</div><div>確認所有同仁班表與出缺勤正確，補休特休是否累計到下個月，作為薪資計算基底</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 總務 ===== -->
+<div class="section" id="gen">
+  <div class="section-header theme-gen" onclick="toggleSection(this)">
+    <div class="sect-icon">🔧</div>
+    <div>
+      <div class="sect-title">總務</div>
+      <div class="sect-meta">採購・庫存管理・維修・環境耗材</div>
+    </div>
+    <div class="sect-badge">3 項職責</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+
+    <!-- 採購 -->
+    <div class="subsection" style="margin-top:6px">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📦</div>
+        <div class="sub-title">採購（盤點 / 庫存管理 / 商品販售）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">採購金額分級制度</div>
+          <div class="priority-list">
+            <div class="priority-item" style="background:rgba(234,243,222,0.7)"><div class="priority-num sn-green">✓</div><div class="priority-text"><strong>3,000元以下：</strong>總務自行採購，事後憑發票/收據核銷</div></div>
+            <div class="priority-item" style="background:rgba(250,236,231,0.7)"><div class="priority-num sn-coral">!</div><div class="priority-text"><strong>3,000元以上：</strong>必須提出申請，列明品項、單價、數量、廠商比價，經行政組長或老闆核准後方可下單</div></div>
+          </div>
+          <div class="block-label">庫存管理規則</div>
+          <div class="tip-box info">
+            <div class="tip-icon">📊</div>
+            <div class="tip-text"><strong>安全庫存計算：</strong><br>月平均消耗量 × 1.5 倍 = 補貨觸發點<br>月平均消耗量 × 2 倍以上 = 暫停採購<br>每月最後一個工作日進行全診所物資盤點</div>
+          </div>
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-blue">1</div><div class="step-text">確認品項用途、使用頻率、現有庫存與是否已有替代品，避免重複採購</div></div>
+            <div class="step"><div class="step-num sn-blue">2</div><div class="step-text">收到物品後逐項確認品項、數量、效期、規格，若有破損或短少立即聯絡廠商</div></div>
+            <div class="step"><div class="step-num sn-blue">3</div><div class="step-text">到貨後於庫存表登記進貨日期、品項、數量、單價、供應商、保存期限</div></div>
+            <div class="step"><div class="step-num sn-blue">4</div><div class="step-text">每日下診前清點零售商品：系統銷售數 = 庫存減少數 = 實際收入金額</div></div>
+            <div class="step"><div class="step-num sn-blue">5</div><div class="step-text">每季盤點：商品效期低於半年或連續三個月銷量為零，回報主管討論促銷/退換貨</div></div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+            <tbody>
+              <tr><td>臨床耗材突然斷貨</td><td>未落實定期盤點，僅憑肉眼估算</td><td>固定每月底盤點，庫存表設定安全庫存欄位，低於水位標紅色警示</td></tr>
+              <tr><td>買太多物品過期堆積</td><td>未設採購上限，看到特價就買</td><td>庫存超過月均消耗量2倍時，除大型活動外暫停採購</td></tr>
+              <tr><td>報銷時找不到發票</td><td>採購後未即時歸檔</td><td>設置「當月待核銷發票&收據資料夾」，任何單據當天放入</td></tr>
+              <tr><td>商品庫存與收費紀錄對不上</td><td>販售後未即時登記，或取用試用品未記錄</td><td>每日下診做一次商品盤點，建立「試用品/贈品領用紀錄」</td></tr>
+            </tbody>
+          </table></div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box info">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">總務採購最容易出錯的地方不是「買不到」，而是「不知道到底還剩多少」。庫存管理不要靠記憶，每一個常用物品都要有安全水位，低於水位就補，高於上限就停。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 維修 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🛠️</div>
+        <div class="sub-title">維修（設備 / 水電 / 空間維護）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">緊急程度判斷</div>
+          <div class="priority-list">
+            <div class="priority-item" style="background:rgba(250,236,231,0.7)"><div class="priority-num sn-coral">緊</div><div class="priority-text"><strong>緊急維修：</strong>停電、漏水、門鎖故障、主要治療儀器無法使用、影響當日看診安全者 → 立即聯絡廠商並回報行政組長</div></div>
+            <div class="priority-item" style="background:rgba(234,243,222,0.7)"><div class="priority-num sn-green">一</div><div class="priority-text"><strong>一般維修：</strong>燈泡不亮、抽屜卡住、非必要設備異常 → 集中排入每週固定維修清單</div></div>
+          </div>
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-blue">1</div><div class="step-text">任何同仁發現異常，立即填寫報修單並附照片或影片紀錄</div></div>
+            <div class="step"><div class="step-num sn-blue">2</div><div class="step-text">聯繫廠商說明故障狀況、提供照片影片，請廠商初步報價與到場時間</div></div>
+            <div class="step"><div class="step-num sn-blue">3</div><div class="step-text">金額超過3,000元，需先回報組長或老闆核准；緊急狀況可先口頭核准，事後補紀錄</div></div>
+            <div class="step"><div class="step-num sn-blue">4</div><div class="step-text">維修當天確認施工範圍不影響病患隱私與看診動線，完成後實際測試確認可正常使用</div></div>
+            <div class="step"><div class="step-num sn-blue">5</div><div class="step-text">於報修紀錄填寫維修日期、廠商、金額、處理結果、保固期限，發票交財務核銷</div></div>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box info">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">維修管理最重要的是「不要讓小問題變成營運事故」。燈泡不亮、門鎖卡卡、儀器怪聲，如果沒有即時登記與追蹤，最後可能變成病患體驗不佳或當日無法看診。總務的工作不是等東西壞掉才處理，而是把異常提早攔下來。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 環境耗材 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🧺</div>
+        <div class="sub-title">環境與耗材補給</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">每日巡檢清單</div>
+          <div class="checklist">
+            <div class="check-item"><div class="check-dot sn-blue">✓</div><div>等候區、治療室、廁所、櫃台、飲水機、垃圾桶、清潔用品與耗材是否到位</div></div>
+            <div class="check-item"><div class="check-dot sn-blue">✓</div><div>補充：酒精、衛生紙、擦手紙、床單、枕套、毛巾、治療耗材、表單與文具</div></div>
+            <div class="check-item"><div class="check-dot sn-blue">✓</div><div>診中視人流巡視廁所與等候區，避免異味、垃圾滿出、地面髒污</div></div>
+            <div class="check-item"><div class="check-dot sn-blue">!</div><div><strong>發現空間損壞、異味、漏水、蟲害、清潔死角需拍照並回報總務或行政組長</strong></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 財務 ===== -->
+<div class="section" id="fin">
+  <div class="section-header theme-fin" onclick="toggleSection(this)">
+    <div class="sect-icon">📊</div>
+    <div>
+      <div class="sect-title">財務</div>
+      <div class="sect-meta">帳務整理・核銷・稅務申報・財務報表</div>
+    </div>
+    <div class="sect-badge">4 項職責</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+
+    <!-- 帳務整理 -->
+    <div class="subsection" style="margin-top:6px">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📂</div>
+        <div class="sub-title">帳務整理（日收 / 支出 / 單據管理）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-green">1</div><div class="step-text">每日固定向行政櫃台與總務收集當天所有收據、發票、轉帳紀錄、支出憑證</div></div>
+            <div class="step"><div class="step-num sn-green">2</div><div class="step-text">對照日記帳、收費登記，確認現金、匯款、刷卡、LINE Pay 等各付款方式收入一致（以週為單位並回報紀錄）</div></div>
+            <div class="step"><div class="step-num sn-green">3</div><div class="step-text">支出資料依科目分類：人事費・租金・設備費・耗材費・文具費・行銷費・維修費・教育訓練費</div></div>
+            <div class="step"><div class="step-num sn-green">4</div><div class="step-text">確認發票抬頭、統編、日期、金額、明細是否正確；收據需確認店章、負責人章</div></div>
+            <div class="step"><div class="step-num sn-green">5</div><div class="step-text">依日期順序登打至帳務系統或 Google Sheet，並將紙本憑證依月份、類別歸檔</div></div>
+            <div class="step"><div class="step-num sn-green">6</div><div class="step-text">收入短少、支出無憑證、發票資料錯誤：當日回報行政組長，不得拖到月底</div></div>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip" style="background:rgba(99,153,34,0.07);border-color:var(--green)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">帳務整理最怕「月底再說」。診所每天有現金、轉帳、多堂數、商品販售與各種支出，只要拖幾天，很多細節就會忘記。財務不需要每天做很複雜的分析，但一定要做到每日資料完整和每週核對。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核銷 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🧾</div>
+        <div class="sub-title">核銷（請款 / 報銷 / 憑證審查）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">核銷三個核心問題</div>
+          <div class="priority-list">
+            <div class="priority-item"><div class="priority-num sn-green">?</div><div class="priority-text"><strong>為什麼花？</strong> — 確認用途與業務關聯性</div></div>
+            <div class="priority-item"><div class="priority-num sn-green">?</div><div class="priority-text"><strong>誰核准？</strong> — 確認主管已簽核，金額在權限內</div></div>
+            <div class="priority-item"><div class="priority-num sn-green">?</div><div class="priority-text"><strong>憑證在哪？</strong> — 發票抬頭/統編以治療所負責人掛名購買為依據</div></div>
+          </div>
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-green">1</div><div class="step-text">確認是否附上核銷單、原始憑證、付款證明與主管核准紀錄</div></div>
+            <div class="step"><div class="step-num sn-green">2</div><div class="step-text">形式審查：日期、金額、用途、品項明細、發票抬頭與統編是否完整正確</div></div>
+            <div class="step"><div class="step-num sn-green">3</div><div class="step-text">確認此筆支出是否在預算內，是否符合採購權限</div></div>
+            <div class="step"><div class="step-num sn-green">4</div><div class="step-text">依支出性質登錄至正確科目</div></div>
+            <div class="step"><div class="step-num sn-green">5</div><div class="step-text">確認無誤後安排零用金支付或銀行轉帳，轉帳後保存交易明細</div></div>
+            <div class="step"><div class="step-num sn-green">6</div><div class="step-text">將核銷單、憑證與付款紀錄裝訂或掃描存檔，依月份保存；已付款憑證蓋「已核銷」</div></div>
+          </div>
+          <div class="block-label">常見狀況與排解</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th width="25%">狀況</th><th width="30%">根本原因</th><th>具體解法</th></tr></thead>
+            <tbody>
+              <tr><td>單據不完整被退件</td><td>同仁不知道核銷標準</td><td>建置「核銷範本」與「不可核銷範例」，格式不符一律退回補件</td></tr>
+              <tr><td>個人消費混入公司支出</td><td>採購時未分開結帳</td><td>要求公私消費分開結帳，混在同張發票者需標註並扣除個人項目</td></tr>
+              <tr><td>未核准就先買</td><td>急用或不了解採購權限</td><td>重申3,000元以上需事前核准，緊急採購也需先以訊息取得主管同意並截圖留存</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 稅務申報 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📈</div>
+        <div class="sub-title">稅務申報（印花稅 / 營業稅 / 扣繳）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">申報時程</div>
+          <div class="tip-box info">
+            <div class="tip-icon">📅</div>
+            <div class="tip-text"><strong>每逢單月（1・3・5・7・9・11月）5日前</strong>：彙整前兩個月進項發票、銷項發票、收據、扣抵憑證，交付會計師<br><strong>提醒設定：</strong>單月 5日・10日・15日 各提醒一次</div>
+          </div>
+          <div class="block-label">執行步驟</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-green">1</div><div class="step-text">確認發票張數、發票號碼、日期區間與系統金額一致；確認印花稅表格與收費登記金額相符</div></div>
+            <div class="step"><div class="step-num sn-green">2</div><div class="step-text">整理扣繳資料：執行業務所得、兼職人員、講師費、勞務報酬的付款名冊與身分資料</div></div>
+            <div class="step"><div class="step-num sn-green">3</div><div class="step-text">依會計師指定格式整理後交付，並確認是否有缺件或需補充說明</div></div>
+            <div class="step"><div class="step-num sn-green">4</div><div class="step-text">申報結果確認，確認金額無誤並於期限內繳款（目前由會計事務所代繳，留存收據即可）</div></div>
+            <div class="step"><div class="step-num sn-green">5</div><div class="step-text">申報書、繳款證明掃描存檔，紙本依年度保存<br>檔案命名格式：<code>260526_發票證明聯_發票編號_廠商名稱_金額</code></div></div>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip" style="background:rgba(99,153,34,0.07);border-color:var(--green)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">稅務申報最好的狀態，是讓會計師覺得你們的資料很好處理。不是全部丟給會計師就沒事，內部先分類好、檔名清楚、金額核對過，會計師的錯誤率會下降，你們被追資料的時間也會少很多。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 財務報表 -->
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">📋</div>
+        <div class="sub-title">財務報表製作（月報 / 損益 / 現金流）</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">每月1～10號發薪前準備工作</div>
+          <div class="steps">
+            <div class="step"><div class="step-num sn-green">1</div><div class="step-text">月底最後一個工作日下診後，彙整當月所有收入・支出・薪資・租金・採購・維修・行銷・稅費，確認銀行帳戶金額</div></div>
+            <div class="step"><div class="step-num sn-green">2</div><div class="step-text">收入分類：治療收入・課程收入・商品收入・多堂數收入・其他收入</div></div>
+            <div class="step"><div class="step-num sn-green">3</div><div class="step-text">支出分類：人事薪資・租金・耗材・行銷・設備・教育訓練・管理費・稅務・其他</div></div>
+            <div class="step"><div class="step-num sn-green">4</div><div class="step-text">每月15日前完成上月「損益表」・「現金流量摘要表」・「應收應付摘要」・「分院營運數據表」</div></div>
+            <div class="step"><div class="step-num sn-green">5</div><div class="step-text">針對收入下滑、成本上升、現金流不足、庫存異常、薪資占比偏高等提出原因與初步建議</div></div>
+            <div class="step"><div class="step-num sn-green">6</div><div class="step-text">報表交行政組長與老闆，月度營運會議中說明重點數字與需決策事項</div></div>
+          </div>
+          <div class="block-label">老闆只需要看三件事</div>
+          <div class="priority-list">
+            <div class="priority-item" style="background:rgba(234,243,222,0.7)"><div class="priority-num sn-green">1</div><div class="priority-text"><strong>這個月有沒有賺錢？</strong> → 損益表</div></div>
+            <div class="priority-item" style="background:rgba(234,243,222,0.7)"><div class="priority-num sn-green">2</div><div class="priority-text"><strong>錢夠不夠？</strong> → 現金流量</div></div>
+            <div class="priority-item" style="background:rgba(234,243,222,0.7)"><div class="priority-num sn-green">3</div><div class="priority-text"><strong>哪裡異常？</strong> → 異常分析與建議</div></div>
+          </div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip" style="background:rgba(99,153,34,0.07);border-color:var(--green)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">財報不是做給會計師看的，是做給經營者決策用的。老闆真正需要知道的是：這個月有沒有賺錢？錢夠不夠？哪裡異常？所以財務報表一定要從「管理決策」的角度來呈現，報表首頁加上「本月重點三件事」。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 新人訓練 ===== -->
+<div class="section" id="new">
+  <div class="section-header theme-new" onclick="toggleSection(this)">
+    <div class="sect-icon">🎓</div>
+    <div>
+      <div class="sect-title">新人訓練指引</div>
+      <div class="sect-meta">四週訓練計畫・能力檢核表・訓練核心原則</div>
+    </div>
+    <div class="sect-badge">3 項模組</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+    <div class="content-card" style="margin-top:6px">
+      <div class="block-label">四週訓練計畫</div>
+      <div class="week-grid">
+        <div class="week-card" style="border-left:3px solid var(--purple);">
+          <div class="week-num" style="color:var(--purple-dark)">第一週：觀察與跟做</div>
+          <div class="week-items">
+            <div class="week-item" style="before:background:var(--purple)">不單獨作業，由正職帶領熟悉環境</div>
+            <div class="week-item">接待・預約系統・日記帳・清潔・電話應對・基本文書</div>
+            <div class="week-item">每天記錄不懂的問題，當天問完</div>
+          </div>
+        </div>
+        <div class="week-card" style="border-left:3px solid var(--blue);">
+          <div class="week-num" style="color:var(--blue-dark)">第二週：獨立執行，旁人確認</div>
+          <div class="week-items">
+            <div class="week-item">嘗試接電話・預約・結帳・引導病患</div>
+            <div class="week-item">關鍵流程由正職在旁覆核</div>
+            <div class="week-item">第2週完成能力考核</div>
+          </div>
+        </div>
+        <div class="week-card" style="border-left:3px solid var(--teal);">
+          <div class="week-num" style="color:var(--teal-dark)">第三週：正式排班，主管抽查</div>
+          <div class="week-items">
+            <div class="week-item">可獨立完成大部分日常工作</div>
+            <div class="week-item">主管每週至少抽查一次：日記帳・預約紀錄・清潔紀錄</div>
+          </div>
+        </div>
+        <div class="week-card" style="border-left:3px solid var(--green);">
+          <div class="week-num" style="color:var(--green-dark)">第四週：能力確認與回饋</div>
+          <div class="week-items">
+            <div class="week-item">行政組長進行15～30分鐘覆盤</div>
+            <div class="week-item">確認熟悉度・問題點・是否可獨立值班</div>
+            <div class="week-item">第4週完成正式能力考核</div>
+          </div>
+        </div>
+      </div>
+      <div class="block-label">能力檢核表</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>類別</th><th>第2週應達成</th><th>第4週應達成</th></tr></thead>
+          <tbody>
+            <tr><td>接待與電話</td><td>能依標準語態接電話並記錄基本需求</td><td>能獨立完成預約、改約、取消與簡單諮詢分流</td></tr>
+            <tr><td>預約與系統</td><td>能在協助下查班表與建立預約</td><td>能獨立查班表、登記病患資料、避免撞診</td></tr>
+            <tr><td>結帳與日記帳</td><td>能理解收費流程與常見付款方式</td><td>能獨立完成日結、核對現金與基本帳務異常回報</td></tr>
+            <tr><td>清潔與開關店</td><td>知道每日清潔與耗材補充項目</td><td>能依清單獨立完成開店或關店流程</td></tr>
+            <tr><td>文書與歸檔</td><td>知道病歷、多堂數、收據、文件擺放位置</td><td>能正確歸檔並協助寄信、公文與基本資料整理</td></tr>
+            <tr><td>應變能力</td><td>遇到問題會主動詢問</td><td>能依SOP初步處理客訴、帳差、臨時改約並回報主管</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="block-label">訓練核心原則</div>
+      <div class="tip-box tip" style="background:var(--purple-light);border-color:var(--purple)">
+        <div class="tip-icon">🎯</div>
+        <div class="tip-text"><strong>「不是給你一本書，而是教你怎麼思考。」</strong><br><br>行政工作最難的不是照表操課，而是電話突然進來、病患臨時改約、帳務對不上、主管又剛好不在時，仍能用正確流程處理。導師要示範思考方式，而不是只叫新人背規則。<br><br>新人能不能留下來，不要只看他一開始快不快，而要看他是否願意問、願意記、願意修正。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 跨部門協作 ===== -->
+<div class="section" id="cross">
+  <div class="section-header theme-cross" onclick="toggleSection(this)">
+    <div class="sect-icon">🔗</div>
+    <div>
+      <div class="sect-title">跨部門協作營運流程</div>
+      <div class="sect-meta">月結遞證・排班派案・管理系統連動查核點</div>
+    </div>
+    <div class="sect-badge">3 項流程</div>
+    <div class="sect-arrow">▾</div>
+  </div>
+  <div class="section-body">
+
+    <div class="subsection" style="margin-top:6px">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">🔄</div>
+        <div class="sub-title">月結遞證會計流程</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">流程總覽</div>
+          <div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="flow-node" style="background:var(--amber-light);color:var(--amber-dark);min-width:200px;">📋 行政櫃台 — 每日日結</div>
+            </div>
+            <div style="padding-left:16px;color:var(--text-3);font-size:13px;">↓ 當日完成收費登記、現金核對、發票整理</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="flow-node" style="background:var(--blue-light);color:var(--blue-dark);min-width:200px;">🔧 總務 — 每週單據彙整</div>
+            </div>
+            <div style="padding-left:16px;color:var(--text-3);font-size:13px;">↓ 採購發票、維修收據、商品進貨資料</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="flow-node" style="background:var(--green-light);color:var(--green-dark);min-width:200px;">📊 財務 — 分類初審</div>
+            </div>
+            <div style="padding-left:16px;color:var(--text-3);font-size:13px;">↓ 依類別分類，確認單據完整性及銀行對帳</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="flow-node" style="background:var(--purple-light);color:var(--purple-dark);min-width:200px;">👑 行政組長 — 覆核異常</div>
+            </div>
+            <div style="padding-left:16px;color:var(--text-3);font-size:13px;">↓ 帳差、無憑證支出、超預算採購追蹤與簽核</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="flow-node" style="background:var(--teal-light);color:var(--teal-dark);min-width:200px;">📁 交付會計師（雙數月含印花稅）</div>
+            </div>
+            <div style="padding-left:16px;color:var(--text-3);font-size:13px;">↓ 每月5～15日老闆查看月報重點</div>
+          </div>
+          <div class="block-label">責任分工</div>
+          <div class="tbl-wrap"><table>
+            <thead><tr><th>角色</th><th>產出內容</th><th>時間點</th></tr></thead>
+            <tbody>
+              <tr><td>行政櫃台</td><td>每日日結、發票整理</td><td>每日下診後</td></tr>
+              <tr><td>總務</td><td>採購維修單據彙整</td><td>每週五小結日</td></tr>
+              <tr><td>財務</td><td>分類初審、對帳</td><td>每月底前</td></tr>
+              <tr><td>行政組長</td><td>異常覆核與簽核</td><td>每月底至5日</td></tr>
+              <tr><td>會計師</td><td>正式申報與帳務</td><td>雙數月底交付</td></tr>
+            </tbody>
+          </table></div>
+          <div class="block-label">經驗分享</div>
+          <div class="tip-box tip" style="background:rgba(29,158,117,0.07);border-color:var(--teal)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text">月結不是財務一個人的工作，而是整個行政系統的總檢查。櫃台日結正確、總務單據完整、財務對帳清楚，最後會計才會順。只要前面任何一段沒做好，月底就一定會變成爛帳。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-header" onclick="toggleSub(this)">
+        <div class="sub-icon">💻</div>
+        <div class="sub-title">管理系統連動與查核點</div>
+        <div class="sub-arrow">▾</div>
+      </div>
+      <div class="sub-body">
+        <div class="content-card">
+          <div class="block-label">固定查核週期</div>
+          <div class="priority-list">
+            <div class="priority-item" style="background:rgba(250,236,231,0.5)">
+              <div class="priority-num sn-coral" style="font-size:10px;min-width:28px">每日</div>
+              <div class="priority-text" style="font-size:12.5px">日結・現金・預約・清潔・異常事件</div>
+            </div>
+            <div class="priority-item" style="background:rgba(230,241,251,0.5)">
+              <div class="priority-num sn-blue" style="font-size:10px;min-width:28px">每週</div>
+              <div class="priority-text" style="font-size:12.5px">庫存・報修・單據・考勤異常・案量分配</div>
+            </div>
+            <div class="priority-item" style="background:rgba(234,243,222,0.5)">
+              <div class="priority-num sn-green" style="font-size:10px;min-width:28px">每月</div>
+              <div class="priority-text" style="font-size:12.5px">班表・薪資・財報・稅務資料・預算與營運分析</div>
+            </div>
+          </div>
+          <div class="block-label">異常狀態燈號</div>
+          <div class="priority-list">
+            <div class="priority-item" style="background:rgba(252,235,235,0.7)"><div style="width:14px;height:14px;border-radius:50%;background:#E24B4A;flex-shrink:0;margin-top:3px;"></div><div class="priority-text" style="font-size:13px"><strong>紅燈：</strong>逾期未完成 → 需立即追蹤，有負責人與期限</div></div>
+            <div class="priority-item" style="background:rgba(250,238,218,0.7)"><div style="width:14px;height:14px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:3px;"></div><div class="priority-text" style="font-size:13px"><strong>黃燈：</strong>即將到期 → 提前關注，主管知悉</div></div>
+            <div class="priority-item" style="background:rgba(234,243,222,0.7)"><div style="width:14px;height:14px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:3px;"></div><div class="priority-text" style="font-size:13px"><strong>綠燈：</strong>完成且有佐證（照片・單據・截圖・主管簽核）</div></div>
+          </div>
+          <div class="block-label">重要原則</div>
+          <div class="tip-box tip" style="background:rgba(29,158,117,0.07);border-color:var(--teal)">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text"><strong>LINE 只能作為通知，正式資料必須回填至管理系統或指定表單。</strong><br><br>管理系統的目的不是把所有人綁死，而是讓事情不靠記憶、不靠口頭、不靠某一個超強員工。好的系統會讓新人比較快上手，主管比較快抓到問題，老闆不用每天追細節也能掌握全局。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂端">↑</button>
+
+<script>
+function toggleSection(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+function toggleSub(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+function openSection(id){
+  const sec = document.getElementById(id);
+  if(!sec) return;
+  const header = sec.querySelector('.section-header');
+  const body = sec.querySelector('.section-body');
+  if(header && !header.classList.contains('open')){
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+  setTimeout(()=>{ const y = sec.getBoundingClientRect().top + window.scrollY - 58; window.scrollTo({top:y,behavior:'smooth'}); },120);
+}
+function navTo(id){ openSection(id); }
+const btn = document.getElementById('scrollBtn');
+window.addEventListener('scroll',()=>{
+  btn.classList.toggle('show', window.scrollY > 400);
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const ids=['mgr','desk','hr','gen','fin','new','cross'];
+  let cur='mgr';
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el && el.getBoundingClientRect().top < 120) cur=id;
+  });
+  const idx=ids.indexOf(cur);
+  if(idx>=0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+});
+document.querySelectorAll('.nav-btn').forEach((btn,i)=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.nav-btn').forEach(b=>{
+      b.classList.remove('active');
+      b.style.background=''; b.style.color='';
+    });
+    this.classList.add('active');
+    this.style.background='#2d2b55'; this.style.color='#fff';
+  });
+});
+</script>
+</body>
+</html>
